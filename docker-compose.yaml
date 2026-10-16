@@ -1,0 +1,19 @@
+services:
+  # mongo:
+  #   image: mongo
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: example
+  #   ports:
+  #     - "27017:27017"
+
+  rabbitmq:
+    image: rabbitmq
+    command: rabbitmq-server
+    environment:
+      RABBITMQ_DEFAULT_USER: noob
+      RABBITMQ_DEFAULT_PASS: noob
+    ports:
+      - "5672:5672"
+      
