@@ -6,9 +6,9 @@ from models import Contact
 
 
 def send_email_stub(email: str, name: str) -> bool:
-    print(f" -> Надсилання листа на {email} ({name})...")
-    time.sleep(1)  # Імітація затримки мережі
-    print(f" [✓] Лист успішно надіслано на {email}")
+    print(f"Надсилання листа на {email} ({name})...")
+    time.sleep(1)  
+    print(f"Лист успішно надіслано на {email}")
     return True
 
 
@@ -26,14 +26,14 @@ def callback(ch, method, properties, body):
                 send_email_stub(contact.email, contact.full_name)
                 contact.update(set__is_sent=True)
                 print(
-                    f" [x] Статус контакту {contact_id} оновлено на is_sent=True\n"
+                    f"Статус контакту {contact_id} оновлено на is_sent=True\n"
                 )
             else:
                 print(
-                    f" [!] Лист контакту {contact_id} вже було надіслано раніше.\n"
+                    f"Лист контакту {contact_id} вже було надіслано раніше.\n"
                 )
         else:
-            print(f" [!] Контакт з ID {contact_id} не знайдено в БД.\n")
+            print(f"Контакт з ID {contact_id} не знайдено в БД.\n")
 
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
@@ -52,14 +52,10 @@ def main():
 
     queue_name = "email_queue"
     channel.queue_declare(queue=queue_name, durable=True)
-
-    # Обмежуємо кількість одночасних повідомлень для одного воркера
     channel.basic_qos(prefetch_count=1)
-
-    # Підписка на чергу
     channel.basic_consume(queue=queue_name, on_message_callback=callback)
 
-    print(" [*] Чекаю на нові повідомлення з RabbitMQ. Для виходу натисніть CTRL+C")
+    print("Чекаю на нові повідомлення з RabbitMQ. Для виходу натисніть CTRL+C")
     try:
         channel.start_consuming()
     except KeyboardInterrupt:

@@ -12,8 +12,6 @@ def main(contacts_count=10):
         pika.ConnectionParameters(host="localhost", credentials=pika.PlainCredentials('noob','noob'))
     )
     channel = connection.channel()
-
-    # Оголошуємо чергу (якщо її ще немає)
     queue_name = "email_queue"
     channel.queue_declare(queue=queue_name, durable=True)
 
@@ -39,7 +37,7 @@ def main(contacts_count=10):
         )
 
         print(
-            f" [x] Створено контакт: {contact.full_name} ({contact.email}) | ID: {contact.id}"
+            f"Створено контакт: {contact.full_name} ({contact.email}) | ID: {contact.id}"
         )
 
     connection.close()
