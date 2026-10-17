@@ -1,3 +1,4 @@
+import os
 import json
 import pika
 from faker import Faker
@@ -5,11 +6,13 @@ from models import Contact
 
 fake = Faker()
 
+RABBIT_USER=os.environ.get('RABBIT_USER')
+RABBIT_PASS=os.environ.get('RABBIT_PASS')
 
 def main(contacts_count=10):
     # 1. Підключення до RabbitMQ
     connection = pika.BlockingConnection(
-        pika.ConnectionParameters(host="localhost", credentials=pika.PlainCredentials('noob','noob'))
+        pika.ConnectionParameters(host="localhost", credentials=pika.PlainCredentials(RABBIT_USER,RABBIT_PASS))
     )
     channel = connection.channel()
     queue_name = "email_queue"

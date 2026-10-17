@@ -1,9 +1,12 @@
 import json
+import os
 import time
 import pika
 from mongoengine import ValidationError
 from models import Contact
 
+RABBIT_USER=os.environ.get('RABBIT_USER')
+RABBIT_PASS=os.environ.get('RABBIT_PASS')
 
 def send_email_stub(email: str, name: str) -> bool:
     print(f"Надсилання листа на {email} ({name})...")
@@ -46,7 +49,7 @@ def callback(ch, method, properties, body):
 def main():
     # Підключення до RabbitMQ
     connection = pika.BlockingConnection(
-        pika.ConnectionParameters(host="localhost",credentials=pika.PlainCredentials('noob','noob'))
+        pika.ConnectionParameters(host="localhost",credentials=pika.PlainCredentials(RABBIT_USER,RABBIT_PASS))
     )
     channel = connection.channel()
 
