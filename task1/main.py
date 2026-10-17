@@ -13,7 +13,7 @@ def search_by_author(name: str):
         print(f"Цитат для автора '{author.fullname}' не знайдено.")
         return
 
-    print(f"\nЗнайдено цитати автора {author.fullname}:")
+    print(f"цитати автора {author.fullname}:")
     for q in quotes:
         # Безпечний вивід у форматі UTF-8
         print(f"- {q.quote}")
@@ -26,7 +26,7 @@ def search_by_tag(tag: str):
         print(f"Цитат з тегом '{tag}' не знайдено.")
         return
 
-    print(f"\nЗнайдено цитати за тегом '{tag}':")
+    print(f"\nцитaти за тегом '{tag}':")
     for q in quotes:
         print(f"- [{q.author.fullname}]: {q.quote}")
 
@@ -42,7 +42,7 @@ def search_by_tags(tags_str: str):
         print(f"Цитат з тегами '{tags_str}' не знайдено.")
         return
 
-    print(f"\nЗнайдено цитати за тегами [{', '.join(tags_list)}]:")
+    print(f"\nцитaти за тегами [{', '.join(tags_list)}]:")
     for q in quotes:
         print(f"- [{q.author.fullname}]: {q.quote}")
 

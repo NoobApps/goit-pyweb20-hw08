@@ -1,6 +1,14 @@
+import os
+from dotenv import load_dotenv
 from mongoengine import connect, Document, StringField, DateField, ReferenceField, ListField, NotUniqueError
 
-connect(host="mongodb+srv://vitalikivaskiv88_db_user:KaQRgV9Sirq5sNc8@cluster0.ua3sivt.mongodb.net/my_quotes_db?retryWrites=true&w=majority")
+load_dotenv()
+MONGO_URI = os.environ.get("MONGO_URI")
+if MONGO_URI:
+    connect(host=MONGO_URI)
+else:
+    raise EnvironmentError("MONGO_URI environment variable not set. Cannot connect to MongoDB.")
+
 
 class Author(Document):
     fullname = StringField(max_length=50, required=True, unique=True)
