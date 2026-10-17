@@ -12,7 +12,7 @@ RABBIT_PASS=os.environ.get('RABBIT_PASS')
 def main(contacts_count=10):
     # 1. Підключення до RabbitMQ
     connection = pika.BlockingConnection(
-        pika.ConnectionParameters(host="localhost", credentials=pika.PlainCredentials(RABBIT_USER,RABBIT_PASS))
+        pika.ConnectionParameters(host="localhost",credentials=pika.PlainCredentials(RABBIT_USER,RABBIT_PASS))
     )
     channel = connection.channel()
     queue_name = "email_queue"

@@ -5,8 +5,9 @@ import pika
 from mongoengine import ValidationError
 from models import Contact
 
-RABBIT_USER=os.environ.get('RABBIT_USER')
-RABBIT_PASS=os.environ.get('RABBIT_PASS')
+RABBIT_USER = os.environ.get('RABBIT_USER')
+RABBIT_PASS = os.environ.get('RABBIT_PASS')
+
 
 def send_email_stub(email: str, name: str) -> bool:
     print(f"Надсилання листа на {email} ({name})...")
