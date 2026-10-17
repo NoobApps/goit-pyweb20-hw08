@@ -1,5 +1,6 @@
 from models import Author, Quote
 import json
+from datetime import datetime
 
 def load_authors(file_path="authors.json"):
     with open(file_path, "r", encoding="utf-8") as file:
@@ -10,7 +11,7 @@ def load_authors(file_path="authors.json"):
         if not author:
             author = Author(
                 fullname=item.get("fullname"),
-                born_date=item.get("born_date"),
+                born_date=datetime.strptime(item.get("born_date"), "%B %d, %Y").date(),
                 born_location=item.get("born_location"),
                 description=item.get("description")
             )
